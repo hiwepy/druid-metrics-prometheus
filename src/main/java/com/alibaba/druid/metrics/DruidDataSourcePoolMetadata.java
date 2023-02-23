@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.alibab.druid.metrics;
+package com.alibaba.druid.metrics;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.boot.jdbc.metadata.AbstractDataSourcePoolMetadata;

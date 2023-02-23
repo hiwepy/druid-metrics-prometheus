@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.alibab.druid.metrics.DruidMetricsAutoConfiguration
+com.alibaba.druid.metrics.DruidMetricsAutoConfiguration
