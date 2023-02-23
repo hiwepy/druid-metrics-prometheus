@@ -46,7 +46,6 @@ import java.util.Map;
 @Configuration
 @AutoConfigureAfter(value =  {MetricsAutoConfiguration.class, DataSourceAutoConfiguration.class, SimpleMetricsExportAutoConfiguration.class})
 @ConditionalOnClass({DruidDataSource.class, MeterRegistry.class})
-@ConditionalOnBean({DataSource.class, MeterRegistry.class})
 public class DruidMetricsAutoConfiguration {
 
 	private static final String DATASOURCE_SUFFIX = "dataSource";
