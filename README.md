@@ -24,22 +24,34 @@ Druid Metrics For Prometheus
 
 http://localhost:8080/actuator/prometheus
 
+```
+# Connection connect max time
+druid_connections_connect_max_time{application="druid-app",} 0.0
+# Connection alive max time
+druid_connections_alive_max_time{application="druid-app",} 0.0
+# Connection alive min time
+druid_connections_alive_min_time{application="druid-app",} 0.0
+# Connection connect count
+druid_connections_connect_count{application="druid-app",} 0.0
+# Connection active count
+druid_connections_active_count{application="druid-app",} 0.0
+# Connection close count
+druid_connections_close_count{application="druid-app",} 0.0
+# Connection error count
+druid_connections_error_count{application="druid-app",} 0.0
+# Connection connect error count
+druid_connections_connect_error_count{application="druid-app",} 0.0
+# Connecting commit count
+druid_connections_commit_count{application="druid-app",} 0.0
+# Connection rollback count
+druid_connections_rollback_count{application="druid-app",} 0.0
+```
 
-```
-# HELP undertow_requests_seconds Number of requests
-# TYPE undertow_requests_seconds summary
-undertow_requests_seconds_count{application="druid-app",} 0.0
-undertow_requests_seconds_sum{application="druid-app",} 0.0
-# HELP undertow_request_time_max_seconds The longest request duration in time
-# TYPE undertow_request_time_max_seconds gauge
-undertow_request_time_max_seconds{application="druid-app",} 0.0
-# HELP undertow_request_errors_total Total number of error requests
-# TYPE undertow_request_errors_total counter
-undertow_request_errors_total{application="druid-app",} 0.0
-# HELP undertow_request_time_min_seconds The shortest request duration in time
-# TYPE undertow_request_time_min_seconds gauge
-undertow_request_time_min_seconds{application="druid-app",} -0.001
-```
+##### 3、Prometheus 集成
+
+
+##### 4、Grafana 集成
+
 
 ## Jeebiz 技术社区
 
