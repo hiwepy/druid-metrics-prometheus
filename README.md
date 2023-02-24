@@ -3,8 +3,13 @@ Druid Metrics For Prometheus
 
 ### 组件简介
 
-> Druid + Actuator 的 Spring Boot Starter 实现；主要代码来自 ：
-> https://gitee.com/596392912/mica/tree/master/mica-metrics
+> Druid + Actuator 的 Spring Boot Starter 实现
+ 
+主要代码来自 ：
+
+- https://gitee.com/596392912/mica/tree/master/mica-metrics
+
+- https://blog.51cto.com/chaim/4582317
 
 ### 使用说明
 
