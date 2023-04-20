@@ -19,7 +19,9 @@ package com.alibaba.druid.metrics;
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.pool.DruidDataSource;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tag;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -34,7 +36,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,9 +47,10 @@ import java.util.Map;
  * @author L.cm
  * @author DL.Wan
  */
-@Configuration
-@AutoConfigureAfter(value =  {MetricsAutoConfiguration.class, DataSourceAutoConfiguration.class, SimpleMetricsExportAutoConfiguration.class})
-@ConditionalOnClass({DruidDataSource.class, MeterRegistry.class})
+@Configuration(proxyBeanMethods = false)
+@AutoConfigureAfter({ MetricsAutoConfiguration.class, DataSourceAutoConfiguration.class, SimpleMetricsExportAutoConfiguration.class })
+@ConditionalOnClass({ DruidDataSource.class, MeterRegistry.class })
+@ConditionalOnBean({ DataSource.class, MeterRegistry.class })
 public class DruidMetricsAutoConfiguration {
 
 	private static final String DATASOURCE_SUFFIX = "dataSource";
@@ -67,8 +72,32 @@ public class DruidMetricsAutoConfiguration {
 		return new StatFilter();
 	}
 
+	private final MeterRegistry registry;
+
+	DruidMetricsAutoConfiguration(MeterRegistry registry) {
+		this.registry = registry;
+	}
+
+	@Autowired
+	void bindMetricsRegistryToDruidDataSources(Map<String, DataSource> dataSources, MeterRegistry registry) {
+		dataSources.forEach(
+				(name, dataSource) -> bindMetricsRegistryToDruidDataSource(name, dataSource, registry));
+
+		for (DataSource dataSource : dataSources) {
+			DruidDataSource druidDataSource = DataSourceUnwrapper.unwrap(dataSource, DruidDataSource.class);
+			if (druidDataSource != null) {
+				bindMetricsRegistryToDruidDataSource(druidDataSource);
+			}
+					ObjectProvider<DataSourcePoolMetadataProvider> metadataProviders
+		}
+	}
+
+	private void bindMetricsRegistryToDruidDataSource(DruidDataSource druid) {
+
+	}
+
 	@Bean
-	public DruidMetrics druidMetrics(ObjectProvider<Map<String, DataSource>> dataSourcesProvider) {
+	public DruidDataSourceMetrics druidMetrics(ObjectProvider<Map<String, DataSource>> dataSourcesProvider) {
 		Map<String, DataSource> dataSourceMap = dataSourcesProvider.getIfAvailable(HashMap::new);
 		Map<String, DruidDataSource> druidDataSourceMap = new HashMap<>(2);
 		dataSourceMap.forEach((name, dataSource) -> {
@@ -78,7 +107,7 @@ public class DruidMetricsAutoConfiguration {
 				druidDataSourceMap.put(getDataSourceName(name), druidDataSource);
 			}
 		});
-		return druidDataSourceMap.isEmpty() ? null : new DruidMetrics(druidDataSourceMap);
+		return druidDataSourceMap.isEmpty() ? null : new DruidDataSourceMetrics(druidDataSourceMap);
 	}
 
 	/**
