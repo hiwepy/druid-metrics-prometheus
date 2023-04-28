@@ -15,12 +15,11 @@
  */
 package com.alibaba.druid.metrics;
 
-import java.io.IOException;
-
-import javax.annotation.PostConstruct;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import javax.annotation.PostConstruct;
+import java.io.IOException;
 
 @SpringBootApplication
 public class Application {

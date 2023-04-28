@@ -271,12 +271,8 @@ public class DruidMetrics implements MeterBinder {
 	/**
 	 * Bind a {@link TimeGauge} to the given {@link JdbcDataSourceStat}.
 	 * @param meterRegistry the meter registry
-	 * @param name the name of the gauge
-	 * @param description the description of the gauge
-	 * @param dataSourceStat the data source stat
-	 * @param function the function to apply to the data source stat
+	 * @param connectionStat the connection stat
 	 * @param tags the tags to apply to the gauge
-	 * @param <T> the type of the data source stat
 	 */
 	private void bindConnectionMetrics(MeterRegistry meterRegistry, JdbcConnectionStat connectionStat, List<Tag> tags) {
 
