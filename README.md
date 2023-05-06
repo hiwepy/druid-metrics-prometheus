@@ -19,7 +19,7 @@ Druid Metrics For Prometheus
 <dependency>
 	<groupId>com.github.hiwepy</groupId>
 	<artifactId>druid-metrics-prometheus</artifactId>
-	<version>1.0.1.RELEASE</version>
+	<version>1.0.2.RELEASE</version>
 </dependency>
 ```
 
